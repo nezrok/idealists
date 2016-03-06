@@ -21,12 +21,17 @@ you don't have to execute these steps again):
 * Install the [KeystoneJS generator](https://github.com/keystonejs/generator-keystone)
 that will setup the basic configurations (e.g. the npm dependencies) and project
 layout:
+
         npm install -g generator-keystone
+
 `-g` enables the global mode. Therefore the generator is installed as a global package.
 
 * Run the generator (will ask you a few questions):
+
         yo keystone
+
 The questions were answered as follows:
+
         ? What is the name of your project? idealists
         ? Would you like to use Jade, Swig, Nunjucks or Handlebars for templates? Jade
         ? Which CSS pre-processor would you like? [less | sass | stylus] sass
@@ -43,5 +48,6 @@ The questions were answered as follows:
         ? Finally, would you like to include extra code comments in your project? No
 
 * Run the project (on http://localhost:3000):
+
         node keystone
 
