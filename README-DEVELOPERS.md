@@ -23,13 +23,11 @@ that will setup the basic configurations (e.g. the npm dependencies) and project
 layout:
 
         npm install -g generator-keystone
-
 `-g` enables the global mode. Therefore the generator is installed as a global package.
 
 * Run the generator (will ask you a few questions):
 
         yo keystone
-
 The questions were answered as follows:
 
         ? What is the name of your project? idealists
