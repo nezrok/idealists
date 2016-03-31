@@ -1,39 +1,79 @@
-// Simulate config options from your production environment by
-// customising the .env file in your project's root folder.
+/**
+ * This is the main script that setups and starts the application.
+ */
+
+// _____________________________________________________________________________
+
+// Define some dependencies.
+
+// Load the ".env" file.
 require('dotenv').load();
 
-// Require keystone
 var keystone = require('keystone');
 
-// Initialise Keystone with your project's configuration.
-// See http://keystonejs.com/guide/config for available options
-// and documentation.
+// _____________________________________________________________________________
+
+// The configuration of the application.
+// See http://keystonejs.com/docs/configuration/ for full documentation of 
+// available options.
 
 keystone.init({
+	// ***** Define the basic options. *****
 
+	// Define the name of the application.
 	'name': 'idealists',
+	
+	// Define the brand of the application (is displayed the top left hand 
+	// corner of the Admin UI).
 	'brand': 'idealists',
 	
-	'sass': 'public',
-	'static': 'public',
-	'favicon': 'public/favicon.ico',
+	// ***** Define the web server options. *****
+
+	// Define the path to the view templates.
 	'views': 'templates/views',
+
+	// Define the template engine to use by default.
 	'view engine': 'jade',
+
+	// Define the path to the static files.
+	'static': 'public',
+
+	// Define the path to sass files. When this option is set, any requests to 
+	// a .css file will first check for a .sass file with the same name, and if 
+	// one found, the css file will be generated.
+	'sass': 'public',
 	
-	'auto update': true,
+	// Define the path to the favicon.
+	'favicon': 'public/favicon.ico',
+
+	// ***** Define the database options. *****
+	
+	// Define the support of session management.
 	'session': true,
+	
+	// Define the use of the built-in views for signing in and out. 
 	'auth': true,
+
+	// Define the model to use for authentication and session management.
 	'user model': 'User'
 
+	// ***** Define the update options. ******
+
+	// Define the support of auto updates.
+	'auto update': true,
 });
 
-// Load your project's Models
+// _____________________________________________________________________________
+
+// Load the models.
 
 keystone.import('models');
 
-// Setup common locals for your templates. The following are required for the
-// bundled templates and layouts. Any runtime locals (that should be set uniquely
-// for each request) should be added to ./routes/middleware.js
+// _____________________________________________________________________________
+
+// Setup common locals for the templates. The following are required for the
+// bundled templates and layouts. Any runtime locals (that should be set 
+// uniquely for each request) should be added to ./routes/middleware.js.
 
 keystone.set('locals', {
 	_: require('underscore'),
@@ -42,17 +82,23 @@ keystone.set('locals', {
 	editable: keystone.content.editable
 });
 
-// Load your project's Routes
+// _____________________________________________________________________________
+
+// Load the routes.
 
 keystone.set('routes', require('./routes'));
 
-// Configure the navigation bar in Keystone's Admin UI
+// _____________________________________________________________________________
+
+// Configure the navigation bar in Keystone's Admin UI.
 
 keystone.set('nav', {
 	'posts': ['posts', 'post-categories'],
 	'users': 'users'
 });
 
-// Start Keystone to connect to your database and initialise the web server
+// _____________________________________________________________________________
+
+// Start the app to connect to the database and initialise the web server.
 
 keystone.start();

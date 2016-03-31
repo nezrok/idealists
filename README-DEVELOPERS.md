@@ -3,12 +3,14 @@ This is the README for developers explaining the technical background and
 implementation details. For a more general README for how to use idealists, see 
 [README.md](README.md)
 
-## KeystoneJs
-This project uses [KeystoneJs 0.3.16](http://keystonejs.com/). KeystoneJs is 
-built upon [Node.js](https://nodejs.org/) and [MongoDB](https://www.mongodb.org/). 
-Make sure you have at least Node.js 0.10 and MongoDB 2.4 installed.
+# The Initial Setup
 
-### The initial setup
+This project uses [KeystoneJs 0.3.16](http://keystonejs.com/). 
+Under the hood, KeystoneJS uses the [express.js](http://expressjs.com/) web 
+server framework (which is build upon (Node.js)[https://nodejs.org/en/]), and a 
+MongoDB database via the (mongoose)[http://mongoosejs.com/] object modelling 
+framework. 
+Make sure you have at least Node.js 0.10 and MongoDB 2.4 installed.
 
 The following steps were executed to setup the project (this is just to recap, 
 you don't have to execute these steps again):
@@ -49,3 +51,89 @@ The questions were answered as follows:
 
         node keystone
 
+# The Project Structure
+
+The basic project structure is as follows:
+
+        |--models
+        |  The database models of the apllication.
+        |--public
+        |  The static files (css, js, images, etc.) that are publicly available.
+        |--routes
+        |  |--views
+        |  |  The view controllers of the application.
+        |  |--index.js
+        |  |  Initialises the routes and views of the application.
+        |  |--middleware.js
+        |  |  Custom middleware for the routes.
+        |--templates
+        |  |--layouts
+        |  |  The basic .jade layouts
+        |  |--mixins
+        |  |  The common .jade mixins.
+        |  |--views
+        |  |  The view templates.
+        |--updates
+        |  The data population and migration scripts.
+        |--package.json
+        |  The project configuration file.
+        |--web.js
+        |  The main script that starts the application.
+
+# Database
+
+In KeystoneJS, the data schema and models are controlled by `Lists`, and 
+documents in the database are often called `Items`.
+
+## Creating Lists.
+
+For a full documentation on how to create a List, see `models/User.js`.
+
+## Creating Items.
+
+For a full documentation on how to create an Item, see `updates/0.0.1-admins.js`.
+
+## Querying Data
+
+To query data, you can use any of the (mongoose query)[http://mongoosejs.com/docs/queries.html] methods on the list.model.
+
+# The Models
+        
+There are the following models:
+        
+* User
+
+# The Routes & Views
+
+# Updates
+
+Updates provide an easy way to seed the database, transition data when the 
+models change, or run transformation scripts against the database.
+
+Update files should be named using a semantic version followed by an optional 
+key, like 0.0.1-init.js. The version numbers are used to order the update 
+scripts correctly, while the keys are a nice way to identify what each update
+does.
+
+Each update file should export a single function, which should accept a 
+single argument - the next(err) callback, to be called when the update is 
+complete.
+
+All the update files will be executed (each one waits for the previous update
+to complete) before the web server is started.
+
+If the next callback is receives an error it will be reported to the console,
+and application initialisation will halt.
+
+# Running the App
+
+To run the application, execute the following in your project's main folder:
+
+        node web
+
+Keystone will automatically apply all updates in the `updates` (if the option 
+`auto update` is set to `true` in `keystone.js`) and then start a web server on 
+the default port 3000.
+
+To see the application running, point your browser at <host>:3000. 
+To sign in to the Admin UI, go to <host>:3000/keystone.
