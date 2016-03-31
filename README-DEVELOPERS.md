@@ -7,8 +7,8 @@ implementation details. For a more general README for how to use idealists, see
 
 This project uses [KeystoneJs 0.3.16](http://keystonejs.com/). 
 Under the hood, KeystoneJS uses the [express.js](http://expressjs.com/) web 
-server framework (which is build upon (Node.js)[https://nodejs.org/en/]), and a 
-MongoDB database via the (mongoose)[http://mongoosejs.com/] object modelling 
+server framework (which is build upon [Node.js](https://nodejs.org/en/), and a 
+MongoDB database via the [mongoose](http://mongoosejs.com/) object modelling 
 framework. 
 Make sure you have at least Node.js 0.10 and MongoDB 2.4 installed.
 
@@ -80,28 +80,24 @@ The basic project structure is as follows:
         |--web.js
         |  The main script that starts the application.
 
+
 # Database
 
-In KeystoneJS, the data schema and models are controlled by `Lists`, and 
+KeyStoneJs uses a MongoDB database via the [mongoose](http://mongoosejs.com/) 
+object modelling framework. For a detailed documentation about mongoose see 
+[http://mongoosejs.com/docs/guide.html](http://mongoosejs.com/docs/guide.html).
+
+The data schema and models are controlled by `Lists`, and 
 documents in the database are often called `Items`.
 
 ## Creating Lists.
 
-For a full documentation on how to create a List, see `models/User.js`.
+For a full documentation on how to create a List, see [models/User.js](models/User.js).
 
 ## Creating Items.
 
-For a full documentation on how to create an Item, see `updates/0.0.1-admins.js`.
+For a full documentation on how to create an Item, see [updates/0.0.1-admins.js](updates/0.0.1-admins.js).
 
-## Querying Data
-
-To query data, you can use any of the (mongoose query)[http://mongoosejs.com/docs/queries.html] methods on the list.model.
-
-# The Models
-        
-There are the following models:
-        
-* User
 
 # The Routes & Views
 
