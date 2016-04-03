@@ -17,13 +17,49 @@ exports = module.exports = function(req, res) {
   // validation errors.
   locals.form = req.body;
 
-  // Saves the user.
-  var saveUser = function(userData, callback) {   
-    new User.model(userData).save(callback);
+  // Returns the function that validates the given data against the schema of 
+  // the given list.
+  var get_validate_function = function(data) {
+    return function(next) {
+      validate.compatible_to_model(data, User, next);
+    };
   };
 
+  // Returns the function that joins the user.
+  var get_join_function = function(data) {
+    return function(next) {
+      new User.model(data).save(next);
+    };  
+  };
+
+  // Returns the function that handles the result from executed action.
+  var get_handle_join_result_function = function(data, next) {
+    return function(err) {
+      // Check, if there is an error occurred on action.
+      if (err) {
+        req.flash("error", err);
+        next();
+      } else {
+        var on_success = function() {
+          res.redirect('/me');
+        }
+        
+        var on_error = function(err) {
+          req.flash('error', __('Signing in failed, please try again.'));
+          next();
+        }
+        
+        // Joined successfully. Sign in the user.
+        ks.session.signin(data, req, res, on_success, on_error);  
+      }
+    };  
+  };
+
+  // ___________________________________________________________________________
+
   view.on('post', { action: 'join' }, function(next) {
-    var userData = {
+    // Compose the user data from join form.
+    var user_data = {
       name: {
         'first': req.body.first_name, 
         'last': req.body.last_name
@@ -34,32 +70,16 @@ exports = module.exports = function(req, res) {
     }
 
     async.series([
-      function(next) { 
-        validate.validate(userData, User, next); 
-      }, 
-      function(next) { 
-        saveUser(userData, next); 
-      }
-    ], function(err) {
-      if (err) {
-        req.flash("error", err);
-        return next();
-      }
-      var onSuccess = function() {
-        res.redirect('/me');
-      }
-        
-      var onError = function(err) {
-        req.flash('error', 'Signing in failed, please try again.');
-        return next();
-      }
-        
-      ks.session.signin({ 
-        email: req.body.email, 
-        password: req.body.password 
-      }, req, res, onSuccess, onError);
-    });
+      // Validate the input.
+      get_validate_function(user_data),
+      // Join.
+      get_join_function(user_data)
+    ], 
+      // Handle the result.
+      get_handle_join_result_function(user_data, next)
+    );
   });
 
+  // Render the view.
   view.render('session/join');
 }

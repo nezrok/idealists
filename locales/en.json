@@ -9,5 +9,7 @@
 	"name.first": "name.first",
 	"%s must consist of at least %s characters.": "%s must consist of at least %s characters.",
 	"%s has invalid syntax.": "%s has invalid syntax.",
-	"%s is already registered.": "%s is already registered."
+	"%s is already registered.": "%s is already registered.",
+	"%s is empty.": "%s is empty.",
+	"%s or %s is incorrect.": "%s or %s is incorrect."
 }

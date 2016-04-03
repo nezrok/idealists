@@ -6,13 +6,13 @@ mixin form-signin()
 		form(method='post', action='/signin', autocomplete='off', novalidate)
 			input(type='hidden', name='action', value='signin')
 			.form-groups
-				//- TODO: Allow to enter user screen name *or* email.
+				//- TODO: Also allow to enter screen name.
 				.form-group
-					label(for='screen_name') Screen Name
+					label(for='email_name') Email
 					input(type='text', 
-						  name='screen_name', 
-						  placeholder='Screen Name',
-						  value=(form ? form.screen_name : null))
+						  name='email', 
+						  placeholder='email',
+						  value=(form ? form.email : null))
 				.form-group
 					label(for='password') Password
 					input(type='password', 
