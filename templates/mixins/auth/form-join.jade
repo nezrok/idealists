@@ -1,0 +1,38 @@
+//-
+	Join form.
+	
+mixin form-join()
+	.auth
+		form(method='post', action='/join', autocomplete='off', novalidate)
+			input(type='hidden', name='action', value='join')
+			.form-groups
+				.form-group
+					label(for='first_name') First Name
+					input(type='text', 
+						  name='first_name', 
+						  placeholder='First Name',
+						  value=(form ? form.first_name : null))
+				.form-group
+					label(for='last_name') Last Name
+					input(type='text', 
+						  name='last_name', 
+						  placeholder='Last Name',
+						  value=(form ? form.last_name : null))
+				.form-group
+					label(for='screen_name') Screen Name
+					input(type='text', 
+						  name='screen_name', 
+						  placeholder='Screen Name'
+						  value=(form ? form.screen_name : null))
+				.form-group
+					label(for='email') Email
+					input(type='email', 
+						  name='email', 
+						  placeholder='Email'
+						  value=(form ? form.email : null))
+				.form-group
+					label(for='password') Password
+					input(type='password', 
+						  name='password', 
+						  placeholder='Password')
+				button(type='submit') Join

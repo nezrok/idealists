@@ -35,7 +35,12 @@ var keystone = require('keystone'),
 // Define the admins.
 
 var admins = [
-	{ email: 'user@keystonejs.com', password: 'admin', name: { first: 'Admin', last: 'User' } }
+	{ 
+		name: { first: 'Claudius', last: 'Korzen'}, 
+		screen_name: 'admin', 
+		email: 'admin@idealists.de', 
+		password: 'admin' 
+	}
 ];
 
 function createAdmin(admin, done) {

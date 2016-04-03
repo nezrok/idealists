@@ -1,0 +1,11 @@
+include ../../mixins/auth/auth-forms
+
+extends ../../layouts/default
+
+block flash-messages
+	//- intentionally blank
+	
+block content			
+	.page
+		+flash-messages(messages)
+		+auth-forms({ intent: 'join' })

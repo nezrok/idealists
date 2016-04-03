@@ -3,7 +3,7 @@ This is the README for developers explaining the technical background and
 implementation details. For a more general README for how to use idealists, see 
 [README.md](README.md)
 
-# The Initial Setup
+## Initial Setup
 
 This project uses [KeystoneJs 0.3.16](http://keystonejs.com/). 
 Under the hood, KeystoneJS uses the [express.js](http://expressjs.com/) web 
@@ -51,19 +51,19 @@ The questions were answered as follows:
 
         node keystone
 
-# The Project Structure
+## Project Structure
 
 The basic project structure is as follows:
 
         |--models
-        |  The database models of the apllication.
+        |  The database models of the application.
         |--public
         |  The static files (css, js, images, etc.) that are publicly available.
         |--routes
         |  |--views
         |  |  The view controllers of the application.
         |  |--index.js
-        |  |  Initialises the routes and views of the application.
+        |  |  Initializes the routes and views of the application.
         |  |--middleware.js
         |  |  Custom middleware for the routes.
         |--templates
@@ -81,7 +81,7 @@ The basic project structure is as follows:
         |  The main script that starts the application.
 
 
-# Database
+## Database
 
 KeyStoneJs uses a MongoDB database via the [mongoose](http://mongoosejs.com/) 
 object modelling framework. For a detailed documentation about mongoose see 
@@ -90,18 +90,33 @@ object modelling framework. For a detailed documentation about mongoose see
 The data schema and models are controlled by `Lists`, and 
 documents in the database are often called `Items`.
 
-## Creating Lists.
+### Creating Lists
 
 For a full documentation on how to create a List, see [models/User.js](models/User.js).
 
-## Creating Items.
+### Creating Items
 
 For a full documentation on how to create an Item, see [updates/0.0.1-admins.js](updates/0.0.1-admins.js).
 
+### Browsing the Database in Terminal
 
-# The Routes & Views
+To browse the database via terminal, type
+        
+        mongo
 
-# Updates
+An interactive shell will start where the following options are available:
+        
+        show dbs           show database names
+        show collections   show collections in current database
+        use $db_name       set current database
+        db.foo.find()      list objects in collection foo
+        help               help on available methods
+        exit               quit the mongo shell
+      
+
+## The Routes & Views
+
+## Updates
 
 Updates provide an easy way to seed the database, transition data when the 
 models change, or run transformation scripts against the database.
@@ -121,15 +136,35 @@ to complete) before the web server is started.
 If the next callback is receives an error it will be reported to the console,
 and application initialisation will halt.
 
-# Running the App
+## Running the App
 
 To run the application, execute the following in your project's main folder:
 
-        node web
+        node keystone
 
 Keystone will automatically apply all updates in the `updates` (if the option 
 `auto update` is set to `true` in `keystone.js`) and then start a web server on 
 the default port 3000.
 
-To see the application running, point your browser at <host>:3000. 
-To sign in to the Admin UI, go to <host>:3000/keystone.
+To see the application running, point your browser at host:3000. 
+To sign in to the Admin UI, go to host:3000/keystone.
+
+##i18n
+
+We use [i18n-node](https://github.com/mashpie/i18n-node) as translation module.
+To install the module, `npm install i18n --save` was typed.
+To configure,  
+
+        i18n.configure({
+            locales:['en', 'de'],
+            defaultLocale: 'de',
+            queryParameter: 'lang',
+            directory: __dirname + '/locales'
+        });
+
+was added to `keystone.js` and the directory `/locales` with relevant files 
+inside were created. Furthermore,
+
+        keystone.pre('routes', i18n.init);
+
+was added to `routes/index.js`.

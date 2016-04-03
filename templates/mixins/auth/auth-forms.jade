@@ -1,0 +1,22 @@
+//-
+	Auth Forms.
+	
+	Args
+	* modal  - flag to indicate whether to show the form in modal window.
+	* intent - the auth intent, accepts "signin" | "join" | "password" | "reset"
+	* from   - the path to redirect to.
+	
+include form-join
+include form-signin
+include form-forgot-password
+include form-reset-password
+
+mixin auth-forms(args)
+	if args.intent == 'join'
+		+form-join(args)
+	else if args.intent == 'password'
+		+form-forgot-password(args)
+	else if args.intent == 'reset'
+		+form-reset-password(args)
+	else
+		+form-signin(args)

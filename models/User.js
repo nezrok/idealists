@@ -19,7 +19,7 @@ var Types = keystone.Field.Types;
 //     label          - The label used for the list in the Admin UI.
 //     path           - The path used for the list in the Admin UI.
 //     singular       - The singular label for the items in the list.
-//     pluaral        - The plural label for the items in the list.
+//     plural         - The plural label for the items in the list.
 //     schema         - Options for the Mongoose Schema for the List. 
 //     drilldown      - A space-delimited list of relationships to display as 
 //                      drilldown in the Admin UI.
@@ -43,7 +43,10 @@ var Types = keystone.Field.Types;
 //     nodelete       - Prevents deletion of items from the list.
 //     hidden         - Hides the list in the Keystone Admin UI.
 
-var User = new keystone.List('User');
+var User = new keystone.List('User', {
+    autokey: { path: 'key', from: 'screen_name', unique: true },
+    track: true
+});
 
 // Add fields (object of keys and values) to the list via List.add(fields).
 // Fields are defined by a set of key/value pairs where key is the name of a 
@@ -52,7 +55,7 @@ var User = new keystone.List('User');
 // See http://keystonejs.com/docs/database/#fields for all details.
 //
 // Valid field options are:
-//     type      - The type of the field. Valud types are:
+//     type      - The type of the field. Valid types are:
 //                  Types.Boolean
 //                  Types.Code
 //                  Types.Color
@@ -92,11 +95,44 @@ var User = new keystone.List('User');
 //     value     - The function to generate the field value when a watched path 
 //                 is changed.
 User.add({
-    name: { type: Types.Name, required: true, index: true },
-    email: { type: Types.Email, initial: true, required: true, index: true },
-    password: { type: Types.Password, initial: true, required: true }
+    name: { 
+        type: Types.Name,
+        syntax: /^[A-Za-z0]+$/
+    },
+    screen_name: {
+        type: String,
+        label: "Screen Name",
+        initial: true,
+        index: true,
+        required: true,
+        unique: true,
+        min_length: 4,
+        max_length: 32,
+        // The screen name must contain only ASCII characters and digits with
+        // hyphens, underscores and dots as *internal* separators.
+        syntax: /^[A-Za-z0-9]+(?:[\._-][A-Za-z0-9]+)*$/
+    },
+    email: { 
+        type: Types.Email, 
+        required: true, 
+        initial: true,
+        index: true,
+        unique: true,
+        syntax: /[^\s@]+@[^\s@]+\.[^\s@]+/
+    },
+    password: { 
+        type: Types.Password,
+        initial: true,  
+        required: true,
+        min_length: 6,
+        max_length: 32
+    }
 }, 'Permissions', {
-    isAdmin: { type: Boolean, label: 'Can access Keystone', index: true }
+    isAdmin: { 
+        type: Boolean, 
+        label: 'Can access Keystone', 
+        index: true 
+    }
 });
 
 // _____________________________________________________________________________
@@ -125,13 +161,13 @@ User.schema.virtual('canAccessKeystone').get(function() {
 //               relationship field)
 //     refPath - the path of the relationship being referred to in the referred 
 //               Model.
-User.relationship({ ref: 'Post', path: 'posts', refPath: 'author' });
+// User.relationship({ ref: 'Post', path: 'posts', refPath: 'author' });
 
 // _____________________________________________________________________________
 
 // Define the columns to display in the Admin UI List View. 
 
-User.defaultColumns = 'name, email, isAdmin';
+User.defaultColumns = 'name, screen_name, email, isAdmin';
 
 // Initialize and register the model.
 User.register();

@@ -1,0 +1,15 @@
+header(id='header')
+	nav(role="navigation")#navigation
+		#navigation-logo Here is the logo
+		#navigation-menu
+			ul#navigation-items
+				li Item 1
+				li Item 2
+		#auth-menu
+			ul#auth-items
+				if user
+					li: a(href='/me') Me
+					li: a(href='/signout') Signout
+				else
+					li: a(href='/signin') Sign in
+					li: a(href='/join') Join

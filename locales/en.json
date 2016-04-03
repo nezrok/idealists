@@ -1,0 +1,13 @@
+{
+	"The %s must not consist of %s only.": "The %s must not consist of %s only.",
+	"Please enter a %s.": "Please enter a %s.",
+	"": "",
+	"%s is required.": "%s is required.",
+	"screen_name": "screen_name",
+	"email": "email",
+	"password": "password",
+	"name.first": "name.first",
+	"%s must consist of at least %s characters.": "%s must consist of at least %s characters.",
+	"%s has invalid syntax.": "%s has invalid syntax.",
+	"%s is already registered.": "%s is already registered."
+}

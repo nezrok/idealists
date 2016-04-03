@@ -1,0 +1,21 @@
+//-
+	Join form.
+	
+mixin form-signin()
+	.auth
+		form(method='post', action='/signin', autocomplete='off', novalidate)
+			input(type='hidden', name='action', value='signin')
+			.form-groups
+				//- TODO: Allow to enter user screen name *or* email.
+				.form-group
+					label(for='screen_name') Screen Name
+					input(type='text', 
+						  name='screen_name', 
+						  placeholder='Screen Name',
+						  value=(form ? form.screen_name : null))
+				.form-group
+					label(for='password') Password
+					input(type='password', 
+						  name='password', 
+						  placeholder='Password')
+				button(type='submit') Sign in

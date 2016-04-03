@@ -10,6 +10,7 @@
 require('dotenv').load();
 
 var keystone = require('keystone');
+var i18n = require('i18n');
 
 // _____________________________________________________________________________
 
@@ -55,7 +56,7 @@ keystone.init({
 	'auth': true,
 
 	// Define the model to use for authentication and session management.
-	'user model': 'User'
+	'user model': 'User',
 
 	// ***** Define the update options. ******
 
@@ -84,6 +85,15 @@ keystone.set('locals', {
 
 // _____________________________________________________________________________
 
+// Configure i18n
+
+i18n.configure({
+	locales:['en', 'de'],
+	directory: __dirname + '/locales'
+});
+
+// _____________________________________________________________________________
+
 // Load the routes.
 
 keystone.set('routes', require('./routes'));
@@ -93,7 +103,6 @@ keystone.set('routes', require('./routes'));
 // Configure the navigation bar in Keystone's Admin UI.
 
 keystone.set('nav', {
-	'posts': ['posts', 'post-categories'],
 	'users': 'users'
 });
 
