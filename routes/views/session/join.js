@@ -2,6 +2,7 @@ var ks = require('keystone');
 var async = require('async');
 var User = ks.list('User');
 var validate = require('../../../lib/validate/validate');
+var email = require('../../../lib/email/email');
 var __ = require('i18n').__;
 
 exports = module.exports = function(req, res) {
@@ -9,6 +10,16 @@ exports = module.exports = function(req, res) {
   if (req.user) {
     return res.redirect('/me');
   }
+
+  var mail = new email.Email("confirm-email");
+        mail.send({
+          "from": "cldskrzn@gmail.com",
+          "to": "seakey@gmx.net",
+          "subject": "seakey@gmx.net",
+          "url": "pups"
+        }, function(err) {
+          console.log(err);
+        });
 
   var view = new ks.View(req, res);
   var locals = res.locals;
@@ -50,7 +61,7 @@ exports = module.exports = function(req, res) {
         }
         
         // Joined successfully. Sign in the user.
-        ks.session.signin(data, req, res, on_success, on_error);  
+        ks.session.signin(data, req, res, on_success, on_error); 
       }
     };  
   };
