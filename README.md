@@ -1,7 +1,7 @@
 # idealists
 Web application for managing lists. 
 
-## How to use
+## How to start
 
 ### Checkout
 
@@ -21,9 +21,9 @@ Once you have checked out the project you can request updates via
     
     git pull --recurse-submodules
 
-### Run the Application.
+### Run the Server
 
-To be able to run the application, make sure you have 
+To be able to run the application's server, make sure you have 
 [npm](https://www.npmjs.com/), [Node.js 0.10+](https://nodejs.org/) and 
 [MongoDB v2.4+](https://www.mongodb.org/) installed.
 The commands to install may depend on your operating system. For Ubuntu 15.04 
@@ -38,7 +38,7 @@ to install npm,
     
 to install Node.js and
 
-    sudo apt.get install mongodb mongodb-server mongodb-clients
+    sudo apt-get install mongodb mongodb-server mongodb-clients
 
 to install MongoDB.
 
@@ -46,9 +46,9 @@ Finally, install the application's dependencies by typing
 
     cd idealists
     npm install
-    
+
 and
 
     node keystone
 
-to run the application.
+to start the application's server.
