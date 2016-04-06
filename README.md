@@ -16,7 +16,39 @@ If your version of git do not support this flag, you can do:
     cd idealists
     git submodule init
     git submodule update
-    
+
 Once you have checked out the project you can request updates via
     
     git pull --recurse-submodules
+
+### Run the Application.
+
+To be able to run the application, make sure you have 
+[npm](https://www.npmjs.com/), [Node.js 0.10+](https://nodejs.org/) and 
+[MongoDB v2.4+](https://www.mongodb.org/) installed.
+The commands to install may depend on your operating system. For Ubuntu 15.04 
+you can type 
+
+    sudo apt-get install npm
+
+to install npm,
+
+    curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
+    sudo apt-get install -y nodejs
+    
+to install Node.js and
+
+    sudo apt.get install mongodb mongodb-server mongodb-clients
+
+to install MongoDB.
+
+Finally, install the application's dependencies by typing
+
+    cd idealists
+    npm install
+    
+and
+
+    node keystone
+
+to run the application.
