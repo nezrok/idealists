@@ -6,8 +6,10 @@
 
 // Define some dependencies.
 
-// Load the ".env" file.
-require('dotenv').load();
+// Load the ".env" file. Use 'dotenv-extended' instead of 'dotenv' to be able
+// to introduce a '.env.defaults'-file. All common settings go into 
+// '.env.defaults' and all sensitive data go to '.env'. 
+require('dotenv-extended').load();
 
 var keystone = require('keystone');
 var i18n = require('i18n');
@@ -28,9 +30,6 @@ keystone.init({
 	// corner of the Admin UI).
 	'brand': 'idealists',
 	
-	// Define your cookie secret here (or as environment variable) 
-	'cookie secret': '(define your secret here)',
-
 	// ***** Define the web server options. *****
 
 	// Define the path to the view templates.
