@@ -36,10 +36,7 @@ List.add({
 		dependsOn: {
 			state: 'published'
 		}
-	},
-	image: {
-		type: Types.CloudinaryImage
-	},
+	}
 });
 
 List.relationship({

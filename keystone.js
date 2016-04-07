@@ -28,6 +28,9 @@ keystone.init({
 	// corner of the Admin UI).
 	'brand': 'idealists',
 	
+	// Define your cookie secret here (or as environment variable) 
+	'cookie secret': '(define your secret here)',
+
 	// ***** Define the web server options. *****
 
 	// Define the path to the view templates.

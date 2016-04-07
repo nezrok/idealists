@@ -21,7 +21,7 @@ Once you have checked out the project you can request updates via
     
     git pull --recurse-submodules
 
-### Run the Server
+### Installing the Dependencies
 
 To be able to run the application's server, make sure you have 
 [npm](https://www.npmjs.com/), [Node.js 0.10+](https://nodejs.org/) and 
@@ -35,19 +35,26 @@ to install npm,
 
     curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
     sudo apt-get install -y nodejs
-    
+
 to install Node.js and
 
-    sudo apt-get install mongodb mongodb-server mongodb-clients
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+    echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list
+    sudo apt-get update
+    sudo apt-get install -y mongodb-org
 
 to install MongoDB.
 
-Finally, install the application's dependencies by typing
+Finally, type
 
     cd idealists
     npm install
 
-and
+to install the application's dependencies.
+
+### Run the Server
+
+Type
 
     node keystone
 
