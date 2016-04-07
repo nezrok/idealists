@@ -21,7 +21,7 @@ Once you have checked out the project you can request updates via
     
     git pull --recurse-submodules
 
-### Installing the Dependencies
+### Install the Dependencies
 
 To be able to run the application's server, make sure you have 
 [npm](https://www.npmjs.com/), [Node.js 0.10+](https://nodejs.org/) and 
