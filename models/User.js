@@ -128,10 +128,14 @@ User.add({
         max_length: 32
     }
 }, 'Permissions', {
-    isAdmin: { 
+    is_admin: { 
         type: Boolean, 
         label: 'Can access Keystone', 
         index: true 
+    },
+    is_verified: { 
+        type: Boolean, 
+        label: 'Has a verified email address'
     }
 });
 
@@ -167,7 +171,7 @@ User.schema.virtual('canAccessKeystone').get(function() {
 
 // Define the columns to display in the Admin UI List View. 
 
-User.defaultColumns = 'name, screen_name, email, isAdmin';
+User.defaultColumns = 'name, screen_name, email, is_admin, is_verified';
 
 // Initialize and register the model.
 User.register();

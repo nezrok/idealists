@@ -3,6 +3,7 @@ var async = require('async');
 var User = ks.list('User');
 var validate = require('../../../lib/validate/validate');
 var email = require('../../../lib/email/email');
+var email_activation = require('../../../lib/session/email_activation');
 var __ = require('i18n').__;
 
 exports = module.exports = function(req, res) {
@@ -11,15 +12,15 @@ exports = module.exports = function(req, res) {
     return res.redirect('/me');
   }
 
-  var mail = new email.Email("confirm-email");
-        mail.send({
-          "from": "cldskrzn@gmail.com",
-          "to": "seakey@gmx.net",
-          "subject": "seakey@gmx.net",
-          "url": "pups"
-        }, function(err) {
-          console.log(err);
-        });
+  // var mail = new email.Email("confirm-email");
+  //       mail.send({
+  //        "from": "cldskrzn@gmail.com",
+  //        "to": "seakey@gmx.net",
+  //        "subject": "seakey@gmx.net",
+  //        "url": "pups"
+  //      }, function(err) {
+  //         console.log(err);
+  //      });
 
   var view = new ks.View(req, res);
   var locals = res.locals;
@@ -39,13 +40,15 @@ exports = module.exports = function(req, res) {
   // Returns the function that joins the user.
   var get_join_function = function(data) {
     return function(next) {
-      new User.model(data).save(next);
+      new User.model(data).save(function(err, user) {
+        next(err, user);
+      });
     };  
   };
 
   // Returns the function that handles the result from executed action.
-  var get_handle_join_result_function = function(data, next) {
-    return function(err) {
+  var get_handle_join_result_function = function(next) {
+    return function(err, result) {
       // Check, if there is an error occurred on action.
       if (err) {
         req.flash("error", err);
@@ -60,8 +63,14 @@ exports = module.exports = function(req, res) {
           next();
         }
         
-        // Joined successfully. Sign in the user.
-        ks.session.signin(data, req, res, on_success, on_error); 
+        var validation_result = result[0];
+        var user = result[1];
+
+        var token = email_activation.create_email_activation_token(user);
+        var text = email_activation.verify_email_activation_token(token);
+        
+        console.log(token);
+        console.log(text);
       }
     };  
   };
@@ -87,7 +96,7 @@ exports = module.exports = function(req, res) {
       get_join_function(user_data)
     ], 
       // Handle the result.
-      get_handle_join_result_function(user_data, next)
+      get_handle_join_result_function(next)
     );
   });
 

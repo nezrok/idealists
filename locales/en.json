@@ -11,5 +11,6 @@
 	"%s has invalid syntax.": "%s has invalid syntax.",
 	"%s is already registered.": "%s is already registered.",
 	"%s is empty.": "%s is empty.",
-	"%s or %s is incorrect.": "%s or %s is incorrect."
+	"%s or %s is incorrect.": "%s or %s is incorrect.",
+	"Signing in failed, please try again.": "Signing in failed, please try again."
 }
